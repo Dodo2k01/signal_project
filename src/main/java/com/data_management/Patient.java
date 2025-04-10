@@ -52,6 +52,15 @@ public class Patient {
      *         range
      */
     public List<PatientRecord> getRecords(long startTime, long endTime) {
-        // TODO Implement and test this method
+        
+        ArrayList<PatientRecord> records = new ArrayList<>(patientRecords);
+
+        for (PatientRecord record:records) {
+            if (!(record.getTimestamp() >= startTime) && !(record.getTimestamp() <= endTime)) {
+                records.remove(record);
+            }
+        }
+        
+        return records;
     }
 }
