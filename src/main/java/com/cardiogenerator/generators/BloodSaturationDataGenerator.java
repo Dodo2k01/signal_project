@@ -1,8 +1,8 @@
-package com.cardio_generator.generators;
+package com.cardiogenerator.generators;
 
 import java.util.Random;
 
-import com.cardio_generator.outputs.OutputStrategy;
+import com.cardiogenerator.outputs.OutputStrategy;
 
 /**
  * The {@code BloodSaturationDataGenerator} class generates simulated blood
@@ -16,7 +16,7 @@ public class BloodSaturationDataGenerator implements PatientDataGenerator {
 
     /**
      * Constructs a {@code BloodSaturationDataGenerator} for the specified number of patients.
-     * Initializes baseline saturation values for each patient.
+     * Generates baseline saturation values for each patient.
      *
      * @param patientCount The number of patients for which saturation data will be generated.
      */
@@ -30,8 +30,7 @@ public class BloodSaturationDataGenerator implements PatientDataGenerator {
     }
 
     /**
-     * Generates a simulated blood saturation value for a specific patient and outputs it.
-     * The value fluctuates within a healthy range (90-100%).
+     * Generates a simulated blood saturation value for a specified patient and outputs it.
      *
      * @param patientId The ID of the patient for whom the saturation data is generated.
      * @param outputStrategy The strategy used to output the generated data.

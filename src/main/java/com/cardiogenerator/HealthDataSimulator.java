@@ -1,19 +1,20 @@
-package com.cardio_generator;
+package com.cardiogenerator;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.cardio_generator.generators.AlertGenerator;
-import com.cardio_generator.generators.BloodPressureDataGenerator;
-import com.cardio_generator.generators.BloodSaturationDataGenerator;
-import com.cardio_generator.generators.BloodLevelsDataGenerator;
-import com.cardio_generator.generators.ECGDataGenerator;
-import com.cardio_generator.outputs.ConsoleOutputStrategy;
-import com.cardio_generator.outputs.FileOutputStrategy;
-import com.cardio_generator.outputs.OutputStrategy;
-import com.cardio_generator.outputs.TcpOutputStrategy;
-import com.cardio_generator.outputs.WebSocketOutputStrategy;
+import com.cardiogenerator.generators.AlertGenerator;
+import com.cardiogenerator.generators.BloodLevelsDataGenerator;
+import com.cardiogenerator.generators.BloodPressureDataGenerator;
+import com.cardiogenerator.generators.BloodSaturationDataGenerator;
+import com.cardiogenerator.generators.ECGDataGenerator;
+import com.cardiogenerator.outputs.ConsoleOutputStrategy;
+import com.cardiogenerator.outputs.FileOutputStrategy;
+import com.cardiogenerator.outputs.OutputStrategy;
+import com.cardiogenerator.outputs.TcpOutputStrategy;
+import com.cardiogenerator.outputs.WebSocketOutputStrategy;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -23,16 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-/**
- * Simulates health data generation for multiple patients, including vital signs and alerts.
- * It allows the user to configure the simulation through command-line arguments, including
- * the number of patients and the output method (console, file, TCP, WebSocket).
- *
- * The simulation runs on multiple threads, generating different types of data at defined intervals.
- *
- * @author unkown
- */
-
+/** Simulates health data generation for multiple patients. */
 public class HealthDataSimulator {
 
     private static int patientCount = 50; // Default number of patients
@@ -40,10 +32,7 @@ public class HealthDataSimulator {
     private static OutputStrategy outputStrategy = new ConsoleOutputStrategy(); // Default output strategy
     private static final Random random = new Random();
 
-    /**
-     * The entry point for the simulation. Initializes the patient data generators and schedules tasks
-     * to simulate health data for patients.
-     */
+    /** Runs the simulation. */
     public static void main(String[] args) throws IOException {
 
         parseArguments(args);
@@ -58,10 +47,9 @@ public class HealthDataSimulator {
      /**
      * Parses command-line arguments to configure the simulation, including
      * the number of patients and the output method.
-      *
-      *
-      * @param args The command-line arguments.
-      * @throws IOException If there is an issue with file or directory creation.
+     * 
+     * @param args The command-line arguments.
+     * @throws NumberFormatException if an invalid patient number, websocket port number, or TCP port number is entered
      */
     private static void parseArguments(String[] args) throws IOException {
         for (int i = 0; i < args.length; i++) {
@@ -124,9 +112,7 @@ public class HealthDataSimulator {
         }
     }
 
-    /**
-     * Prints the help message that explains the command-line options.
-     */
+    /** Prints the help message that explains the command-line options. */
     private static void printHelp() {
         System.out.println("Usage: java HealthDataSimulator [options]");
         System.out.println("Options:");
@@ -145,9 +131,9 @@ public class HealthDataSimulator {
     }
 
     /**
-     * Initializes the patient IDs based on the number of patients.
+     * Generates patient IDs for all patients.
      *
-     * @param patientCount The number of patients to simulate.
+     * @param patientCount The number of patients to generate IDs for.
      * @return A list of patient IDs.
      */
     private static List<Integer> initializePatientIds(int patientCount) {
@@ -161,7 +147,7 @@ public class HealthDataSimulator {
     /**
      * Schedules the tasks for each patient to generate health data at specific intervals.
      *
-     * @param patientIds A list of patient IDs.
+     * @param patientIds The list of patient IDs for which data should be generated.
      */
     private static void scheduleTasksForPatients(List<Integer> patientIds) {
         ECGDataGenerator ecgDataGenerator = new ECGDataGenerator(patientCount);
