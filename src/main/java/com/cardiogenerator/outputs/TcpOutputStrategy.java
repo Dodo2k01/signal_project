@@ -1,4 +1,4 @@
-package com.cardio_generator.outputs;
+package com.cardiogenerator.outputs;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,12 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Executors;
 
-/**
- * The {@code TcpOutputStrategy} class implements the {@link OutputStrategy} interface
- * and sends patient data to a client over a TCP connection. It listens for incoming
- * client connections on a specified port and outputs data in a comma-separated format.
- *
- */
+/** Sends patient data to a client over a TCP connection. */
 public class TcpOutputStrategy implements OutputStrategy {
 
     private ServerSocket serverSocket;

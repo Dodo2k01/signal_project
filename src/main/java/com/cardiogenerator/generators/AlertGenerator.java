@@ -1,22 +1,19 @@
-package com.cardio_generator.generators;
+package com.cardiogenerator.generators; // Style: removed underscore from package name
 
 import java.util.Random;
 
-import com.cardio_generator.outputs.OutputStrategy;
+import com.cardiogenerator.outputs.OutputStrategy;
 
-/**
- * The {@code AlertGenerator} class generates simulated alerts for multiple patients.
- * It triggers alerts with a given probability and resolves them with a high probability.
- * Alerts are represented by a state (triggered or resolved) and are output using
- * the provided {@link OutputStrategy}.
- *
- * @author Your Name
- */
+/** Responsible for generating simulated patient alerts. */
 public class AlertGenerator implements PatientDataGenerator {
 
+    /** Random number generator */
     public static final Random randomGenerator = new Random();
+    
+    /** Tracks which patients have active alerts. */
     private boolean[] alertStates; // false = resolved, true = triggered
-    //changed all variable names AlertStates to alertStates for correct convention
+    // Style: changed variable name AlertStates to alertStates
+
     /**
      * Constructs an {@code AlertGenerator} for the specified number of patients.
      * Initializes the alert states to "resolved" for each patient.
@@ -28,8 +25,7 @@ public class AlertGenerator implements PatientDataGenerator {
     }
 
     /**
-     * Generates and outputs an alert for a specific patient. The alert can either be triggered
-     * or resolved based on predefined probabilities.
+     * Randomly generates and outputs an alert for a specific patient.
      *
      * @param patientId The ID of the patient for whom the alert is generated.
      * @param outputStrategy The strategy used to output the generated alert data.
