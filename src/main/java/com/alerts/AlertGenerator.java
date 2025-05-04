@@ -2,6 +2,9 @@ package com.alerts;
 
 import com.datamanagement.DataStorage; // Style: removed underscore from package name
 import com.datamanagement.Patient;
+import com.datamanagement.PatientRecord;
+
+import java.util.List;
 
 /**
  * The {@code AlertGenerator} class is responsible for monitoring patient data
@@ -36,6 +39,7 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
         // Implementation goes here
+        List<PatientRecord> patientRecord = patient.getPatientRecords();
     }
 
     /**
@@ -47,6 +51,7 @@ public class AlertGenerator {
      * @param alert the alert object containing details about the alert condition
      */
     private void triggerAlert(Alert alert) {
+
         // Implementation might involve logging the alert or notifying staff
     }
 }

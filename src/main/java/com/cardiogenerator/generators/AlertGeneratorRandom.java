@@ -5,7 +5,7 @@ import java.util.Random;
 import com.cardiogenerator.outputs.OutputStrategy;
 
 /** Responsible for generating simulated patient alerts. */
-public class AlertGenerator implements PatientDataGenerator {
+public class AlertGeneratorRandom implements PatientDataGenerator {
 
     /** Random number generator */
     public static final Random randomGenerator = new Random();
@@ -20,7 +20,7 @@ public class AlertGenerator implements PatientDataGenerator {
      *
      * @param patientCount The number of patients for which alerts will be generated.
      */
-    public AlertGenerator(int patientCount) {
+    public AlertGeneratorRandom(int patientCount) {
         alertStates = new boolean[patientCount + 1];
     }
 

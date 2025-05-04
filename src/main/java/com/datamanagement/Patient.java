@@ -23,6 +23,12 @@ public class Patient {
         this.patientId = patientId;
         this.patientRecords = new ArrayList<>();
     }
+    public int getPatientId() {
+        return patientId;
+    }
+    public List<PatientRecord> getPatientRecords() {
+        return patientRecords;
+    }
 
     /**
      * Adds a new record to this patient's list of medical records.
@@ -35,7 +41,7 @@ public class Patient {
      * @param timestamp        the time at which the measurement was taken, in
      *                         milliseconds since UNIX epoch
      */
-    public void addRecord(double measurementValue, String recordType, long timestamp) {
+    public void addRecord(Object measurementValue, String recordType, long timestamp) {
         PatientRecord record = new PatientRecord(this.patientId, measurementValue, recordType, timestamp);
         this.patientRecords.add(record);
     }
