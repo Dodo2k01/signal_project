@@ -8,18 +8,18 @@ import java.util.stream.Collectors;
 
 // Represents an alert class
 public class Alert {
-    private String patientId;
+    private int patientId;
     private String condition;
     private long timestamp;
     protected final String[] differentTypes = {"Alert","Cholesterol","DiastolicPressure","ECG","RedBloodCells","Saturation","SystolicPressure","WhiteBloodCells"};
 
-    public Alert(String patientId, String condition, long timestamp) {
+    public Alert(int patientId, String condition, long timestamp) {
         this.patientId = patientId;
         this.condition = condition;
         this.timestamp = timestamp;
     }
 
-    public String getPatientId() {
+    public int getPatientId() {
         return patientId;
     }
 
