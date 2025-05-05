@@ -1,28 +1,19 @@
 package com.cardiogenerator;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import com.cardiogenerator.generators.*;
+import com.cardiogenerator.outputs.*;
 
-import com.cardiogenerator.generators.AlertGeneratorRandom;
-import com.cardiogenerator.generators.BloodLevelsDataGenerator;
-import com.cardiogenerator.generators.BloodPressureDataGenerator;
-import com.cardiogenerator.generators.BloodSaturationDataGenerator;
-import com.cardiogenerator.generators.ECGDataGenerator;
-import com.cardiogenerator.outputs.ConsoleOutputStrategy;
-import com.cardiogenerator.outputs.FileOutputStrategy;
-import com.cardiogenerator.outputs.OutputStrategy;
-import com.cardiogenerator.outputs.TcpOutputStrategy;
-import com.cardiogenerator.outputs.WebSocketOutputStrategy;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /** Simulates health data generation for multiple patients. */
 public class HealthDataSimulator {

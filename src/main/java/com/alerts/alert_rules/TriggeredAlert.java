@@ -3,14 +3,13 @@ package com.alerts.alert_rules;
 import com.alerts.Alert;
 import com.datamanagement.PatientRecord;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 
 public class TriggeredAlert extends Alert implements AlertRule{
 
     public TriggeredAlert(String patientId, String condition, long timestamp) {
-        super(patientId, condition, timestamp);
+        super(Integer.parseInt(patientId), condition, timestamp);
     }
 
     @Override

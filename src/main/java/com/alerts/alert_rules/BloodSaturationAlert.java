@@ -3,13 +3,12 @@ package com.alerts.alert_rules;
 import com.alerts.Alert;
 import com.datamanagement.PatientRecord;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class BloodSaturationAlert extends Alert implements AlertRule {
     private static final String saturation = "Saturation";
     public BloodSaturationAlert(String patientId, String condition, long timestamp) {
-        super(patientId, condition, timestamp);
+        super(Integer.parseInt(patientId), condition, timestamp);
     }
 
     @Override

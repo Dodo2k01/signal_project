@@ -1,8 +1,8 @@
 package com.cardiogenerator.generators; // Style: removed underscore from package name
 
-import java.util.Random;
-
 import com.cardiogenerator.outputs.OutputStrategy;
+
+import java.util.Random;
 
 /** Responsible for generating simulated patient alerts. */
 public class AlertGeneratorRandom implements PatientDataGenerator {

@@ -9,7 +9,7 @@ import java.util.List;
 public class HypotensiveHypoxemiaAlert extends Alert implements AlertRule{
 
     public HypotensiveHypoxemiaAlert(String patientId, String condition, long timestamp) {
-        super(patientId, condition, timestamp);
+        super(Integer.parseInt(patientId), condition, timestamp);
     }
 
     @Override

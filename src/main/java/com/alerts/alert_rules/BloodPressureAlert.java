@@ -4,14 +4,11 @@ import com.alerts.Alert;
 import com.datamanagement.Patient;
 import com.datamanagement.PatientRecord;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BloodPressureAlert extends Alert implements AlertRule {
     public BloodPressureAlert(String patientId, String condition, long timestamp) {
-        super(patientId, condition, timestamp);
+        super(Integer.parseInt(patientId), condition, timestamp);
     }
 
     @Override

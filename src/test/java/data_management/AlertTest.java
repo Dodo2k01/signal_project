@@ -1,12 +1,9 @@
 package data_management;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import com.alerts.Alert;
 import org.junit.jupiter.api.Test;
 
-import com.datamanagement.PatientRecord;
-
-import com.alerts.Alert;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AlertTest {
 

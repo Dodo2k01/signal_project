@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ECGAlert extends Alert implements AlertRule {
     public ECGAlert(String patientId, String condition, long timestamp) {
-        super(patientId, condition, timestamp);
+        super(Integer.parseInt(patientId), condition, timestamp);
     }
 
     @Override

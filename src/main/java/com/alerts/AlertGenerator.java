@@ -1,6 +1,6 @@
 package com.alerts;
 
-import com.datamanagement.DataStorage; // Style: removed underscore from package name
+import com.datamanagement.DataStorage;
 import com.datamanagement.Patient;
 import com.datamanagement.PatientRecord;
 

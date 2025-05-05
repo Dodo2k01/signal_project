@@ -1,10 +1,11 @@
 package com.datamanagement;
 
+import com.alerts.AlertGenerator;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.alerts.AlertGenerator;
 
 /**
  * Manages storage and retrieval of patient data within a healthcare monitoring
