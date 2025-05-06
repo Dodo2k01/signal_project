@@ -321,7 +321,14 @@ public class Alert {
 
         @Override
         public List<Alert> evaluate(int patientID, List<PatientRecord> patientRecords) {
-            return List.of();
+            List<Alert> alerts = new ArrayList<>();
+            String type = "Alert";
+            List<PatientRecord> records = getTypeRecords(patientRecords, type);
+            for (PatientRecord record : records) {
+                if(record.getMeasurementValue().toString().equalsIgnoreCase(type))
+                    alerts.add(new Alert(patientID, "Alert " + record.getMeasurementValue().toString(), record.getTimestamp()));
+            }
+            return alerts;
         }
     }
 }
