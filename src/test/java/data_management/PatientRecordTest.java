@@ -12,7 +12,7 @@ public class PatientRecordTest {
         PatientRecord patientRecord = new PatientRecord(1, 100.0, "WhiteBloodCells", 1714376789050L);
 
         int patientId = patientRecord.getPatientId();
-        double measurementValue = patientRecord.getMeasurementValue();
+        double measurementValue = Double.parseDouble(patientRecord.getMeasurementValue().toString());
         String recordType = patientRecord.getRecordType();
         long timestamp = patientRecord.getTimestamp();
 

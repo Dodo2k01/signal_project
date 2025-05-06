@@ -4,6 +4,7 @@ import com.datamanagement.DataStorage;
 import com.datamanagement.Patient;
 import com.datamanagement.PatientRecord;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +40,9 @@ public class AlertGenerator {
      */
     public void evaluateData(Patient patient) {
         // Implementation goes here
-        List<PatientRecord> patientRecord = patient.getPatientRecords();
+
+
+
     }
 
     /**

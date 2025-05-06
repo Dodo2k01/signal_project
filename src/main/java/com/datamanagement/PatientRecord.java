@@ -10,10 +10,10 @@ package com.datamanagement;
  * taken.
  */
 public class PatientRecord {
-    private int patientId;
-    private String recordType; // Example: ECG, blood pressure, etc.
-    private Object measurementValue; // Example: heart rate
-    private long timestamp;
+    private final int patientId;
+    private final String recordType; // Example: ECG, blood pressure, etc.
+    private final Object measurementValue; // Example: heart rate
+    private final long timestamp;
 
     /**
      * Constructs a new patient record with specified details.
