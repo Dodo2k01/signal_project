@@ -133,7 +133,7 @@ public class Alert {
             List<Alert> alerts = new ArrayList<>();
             List<PatientRecord> saturationType = getTypeRecords(recs, saturation);
             if (saturationType.isEmpty()) return alerts;
-            for (int i = saturationType.size() - 1; i > 0; i--) { //increment from the last index bc the newest records are last
+            for (int i = saturationType.size() - 1; i > -1; i--) { //increment from the last index bc the newest records are last
                 PatientRecord patientRecord = saturationType.get(i);
                 long tNow = patientRecord.getTimestamp();
                 double saturationNow = Double.parseDouble(patientRecord.getMeasurementValue().toString().replace("%", ""));
