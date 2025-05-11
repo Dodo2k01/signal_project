@@ -1,5 +1,6 @@
 package com.alerts;
 
+import com.alerts.alerts.Alert;
 import com.datamanagement.DataStorage;
 import com.datamanagement.Patient;
 import com.datamanagement.PatientRecord;

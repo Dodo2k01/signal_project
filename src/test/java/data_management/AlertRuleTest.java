@@ -1,6 +1,6 @@
 package data_management;
 
-import com.alerts.Alert;
+import com.alerts.alerts.Alert;
 import com.datamanagement.Patient;
 import org.junit.jupiter.api.Test;
 import java.util.List;

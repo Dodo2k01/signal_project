@@ -1,7 +1,9 @@
 package com.datamanagement;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a patient and manages their medical records.
@@ -60,6 +62,17 @@ public class Patient {
         for (PatientRecord record : patientRecords) {
             long t = record.getTimestamp();
             if (t >= startTime && t <= endTime) {
+                records.add(record);
+            }
+        }
+        return records;
+    }
+
+    public List<PatientRecord> getRecords(long startTime, long endTime, String type) {
+        List<PatientRecord> records = new ArrayList<>();
+        for (PatientRecord record : patientRecords) {
+            long t = record.getTimestamp();
+            if (t >= startTime && t <= endTime && record.getRecordType().equals(type)) {
                 records.add(record);
             }
         }
