@@ -6,8 +6,10 @@ import java.util.List;
 import com.alerts.alerts.Alert;
 import com.alerts.alerts.BloodPressureAlert;
 import com.datamanagement.PatientRecord;
+import static com.datamanagement.Patient.getRecords;
 
-public class BloodPressureStrategy implements AlertStrategy {
+
+public class BloodPressureStrategy extends AlertStrategy {
 
     @Override
     public List<Alert> checkAlert(int patientId, List<PatientRecord> patientRecords) {
@@ -25,7 +27,7 @@ public class BloodPressureStrategy implements AlertStrategy {
             }
         }
         for (String type : types) {
-            List<PatientRecord> typeRecords = getTypeRecords(patientRecords, type);
+            List<PatientRecord> typeRecords = getRecords(patientRecords, type);
             for (int i = 2; i < typeRecords.size(); i++) {
 
                 ArrayList<PatientRecord> readings = new ArrayList<>();

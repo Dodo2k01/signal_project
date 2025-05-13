@@ -1,5 +1,6 @@
 package data_management;
 
+import com.alerts.alert_strategies.*;
 import com.alerts.alerts.Alert;
 import com.datamanagement.Patient;
 import org.junit.jupiter.api.Test;
@@ -9,18 +10,27 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AlertRuleTest {
+private static final List<AlertStrategy> alertStrategies;
+
+static {
+    alertStrategies = new ArrayList<>();
+    alertStrategies.add(new TriggeredAlertStrategy());
+    alertStrategies.add(new BloodPressureStrategy());
+    alertStrategies.add(new OxygenSaturationStrategy());
+    alertStrategies.add(new ECGStrategy());
+}
 
     @Test
     void testBloodPressureAlert() {
 
-        Alert.BloodPressureAlert rule = new Alert.BloodPressureAlert();
+        AlertStrategy rule = alertStrategies.get(1);
         long t = 0L;
 
         // 1) Systolic critical high
         Patient p1 = new Patient(1);
         p1.addRecord(200.0, "SystolicPressure", ++t);
 
-        List<Alert> alerts = rule.evaluate(1, p1.getRecords(t, t));
+        List<Alert> alerts = rule.checkAlert(1, p1.getRecords(t, t));
         Alert alert = new Alert(1, "Systolic Pressure Critically High: " + 200.0, t);
         assertEquals(alert.toString(), alerts.get(0).toString());
 
@@ -28,7 +38,7 @@ public class AlertRuleTest {
         Patient p2 = new Patient(2);
         p2.addRecord(80.0, "SystolicPressure", ++t);
 
-        alerts = rule.evaluate(2, p2.getRecords(t, t));
+        alerts = rule.checkAlert(2, p2.getRecords(t, t));
         alert = new Alert(2, "Systolic Pressure Critically Low: " + 80.0, t);
         assertEquals(alert.toString(), alerts.get(0).toString());
 
@@ -36,7 +46,7 @@ public class AlertRuleTest {
         Patient p3 = new Patient(3);
         p3.addRecord(131.0, "DiastolicPressure", ++t);
 
-        alerts = rule.evaluate(3, p3.getRecords(t, t));
+        alerts = rule.checkAlert(3, p3.getRecords(t, t));
         alert = new Alert(3, "Diastolic Pressure Critically High: " + 131.0, t);
         assertEquals(alert.toString(), alerts.get(0).toString());
 
@@ -44,7 +54,7 @@ public class AlertRuleTest {
         Patient p4 = new Patient(4);
         p4.addRecord(49.0, "DiastolicPressure", ++t);
 
-        alerts = rule.evaluate(4, p4.getRecords(t, t));
+        alerts = rule.checkAlert(4, p4.getRecords(t, t));
         alert = new Alert(4, "Diastolic Pressure Critically Low: " + 49.0, t);
         assertEquals(alert.toString(), alerts.get(0).toString());
 
@@ -54,7 +64,7 @@ public class AlertRuleTest {
         p5.addRecord(115.0, "SystolicPressure", ++t);
         p5.addRecord(130.0, "SystolicPressure", ++t);
 
-        alerts = rule.evaluate(5, p5.getRecords(t-2, t));
+        alerts = rule.checkAlert(5, p5.getRecords(t-2, t));
         alert = new Alert(5, "SystolicPressure trends up from: " + 100.0 + " to " + 130.0, t);
         assertEquals(alert.toString(), alerts.get(0).toString());
 
@@ -64,7 +74,7 @@ public class AlertRuleTest {
         p6.addRecord(115.0, "SystolicPressure", ++t);
         p6.addRecord(100.0, "SystolicPressure", ++t);
 
-        alerts = rule.evaluate(6, p6.getRecords(t-2, t));
+        alerts = rule.checkAlert(6, p6.getRecords(t-2, t));
         alert = new Alert(6, "SystolicPressure trends down from: " + 130.0 + " to " + 100.0, t);
         assertEquals(alert.toString(), alerts.get(0).toString());
 
@@ -74,7 +84,7 @@ public class AlertRuleTest {
         p7.addRecord(72.0, "DiastolicPressure", ++t);
         p7.addRecord(83.0, "DiastolicPressure", ++t);
 
-        alerts = rule.evaluate(7, p7.getRecords(t-2, t));
+        alerts = rule.checkAlert(7, p7.getRecords(t-2, t));
         alert = new Alert(7, "DiastolicPressure trends up from: " + 61.0 + " to " + 83.0, t);
         assertEquals(alert.toString(), alerts.get(0).toString());
 
@@ -84,7 +94,7 @@ public class AlertRuleTest {
         p8.addRecord(89.0, "DiastolicPressure", ++t);
         p8.addRecord(78.0, "DiastolicPressure", ++t);
 
-        alerts = rule.evaluate(8, p8.getRecords(t-2, t));
+        alerts = rule.checkAlert(8, p8.getRecords(t-2, t));
         alert = new Alert(8, "DiastolicPressure trends down from: " + 100.0 + " to " + 78.0, t);
         assertEquals(alert.toString(), alerts.get(0).toString());
     }
@@ -92,17 +102,17 @@ public class AlertRuleTest {
     @Test
     void testBloodSaturationAlert() {
 
-        Alert.BloodSaturationAlert rule = new Alert.BloodSaturationAlert();
+        AlertStrategy rule = alertStrategies.get(2);
 
         // 1) Low saturation only
         Patient p1 = new Patient(1);
         p1.addRecord("95%", "Saturation", 1L);    // no alert
         p1.addRecord("91%", "Saturation", 2L);    // low → alert
 
-        List<Alert> alerts = rule.evaluate(1, p1.getRecords(1L, 1L));
+        List<Alert> alerts = rule.checkAlert(1, p1.getRecords(1L, 1L));
         assertEquals(true, alerts.isEmpty());
 
-        alerts = rule.evaluate(1, p1.getRecords(2L, 2L));
+        alerts = rule.checkAlert(1, p1.getRecords(2L, 2L));
         Alert alert = new Alert(1, "Saturation critically low: " + 91.0, 2L);
         assertEquals(alert.toString(), alerts.get(0).toString());
 
@@ -110,9 +120,9 @@ public class AlertRuleTest {
         Patient p2 = new Patient(2);
         p2.addRecord("98%", "Saturation", 10L);
         p2.addRecord("92%", "Saturation", 10L + 5 * 60 * 1000); // 5 min later, drop of 6%
-        System.out.println("Rapid Drop Test: " + rule.evaluate(p2.getPatientId(), p2.getPatientRecords()));
+        System.out.println("Rapid Drop Test: " + rule.checkAlert(p2.getPatientId(), p2.getPatientRecords()));
 
-        alerts = rule.evaluate(2, p2.getRecords(10L, 10L + 5 * 60 * 1000));
+        alerts = rule.checkAlert(2, p2.getRecords(10L, 10L + 5 * 60 * 1000));
         alert = new Alert(2, "Rapid Saturation drop from : " + 98.0 + " to " + 92.0, 10L + 5 * 60 * 1000);
         assertEquals(alert.toString(), alerts.get(0).toString());
 
@@ -120,9 +130,9 @@ public class AlertRuleTest {
         Patient p3 = new Patient(3);
         p3.addRecord("97%", "Saturation", 100L);
         p3.addRecord("90%", "Saturation", 100L + 8 * 60 * 1000); // 8 min later, drop of 7%
-        System.out.println("Combined Test:   " + rule.evaluate(p3.getPatientId(), p3.getPatientRecords()));
+        System.out.println("Combined Test:   " + rule.checkAlert(p3.getPatientId(), p3.getPatientRecords()));
 
-        alerts = rule.evaluate(3, p3.getRecords(100L, 100L + 8 * 60 * 1000));
+        alerts = rule.checkAlert(3, p3.getRecords(100L, 100L + 8 * 60 * 1000));
         alert = new Alert(3, "Saturation critically low: " + 90.0, 100L + 8 * 60 * 1000);
         assertEquals(alert.toString(), alerts.get(0).toString());
         alert = new Alert(3, "Rapid Saturation drop from : " + 97.0 + " to " + 90.0, 100L + 8 * 60 * 1000);
@@ -131,7 +141,9 @@ public class AlertRuleTest {
 
     @Test
     void HypotensiveHypoxemiaAlert() {
-        
+
+        AlertStrategy rule = alertStrategies.get(2);
+
         Alert.HypotensiveHypoxemiaAlert rule = new Alert.HypotensiveHypoxemiaAlert();
 
         // Case 1: neither condition → no alerts
