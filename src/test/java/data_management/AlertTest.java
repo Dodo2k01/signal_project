@@ -1,6 +1,7 @@
 package data_management;
 
 import com.alerts.alerts.Alert;
+import com.alerts.alerts.TriggeredAlert;
 import com.datamanagement.Patient;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ public class AlertTest {
 
     @Test
     void testAllMethods() {
-        Alert alert = new Alert(1, "Traumatic Brain Injury", 1714376789050L);
+        Alert alert = new TriggeredAlert(1, "Traumatic Brain Injury", 1714376789050L);
 
         int patientId = alert.getPatientId();
         String condition = alert.getCondition();

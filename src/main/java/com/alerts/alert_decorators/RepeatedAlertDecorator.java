@@ -22,7 +22,11 @@ public class RepeatedAlertDecorator extends AlertDecorator {
 
     public List<Alert> repeatedAlerts() {
         List<PatientRecord> records = patient.getRecords(startTime, endTime);
-        return alertStrategy.checkAlert(patient.getPatientId(), records);
+        List<Alert> alertList =  alertStrategy.checkAlert(patient.getPatientId(), records);
+        for (Alert alert : alertList) {
+        alert.setCondition("REPEATED: " + alert.getCondition());
+        }
+        return alertList;
     }
 
 
