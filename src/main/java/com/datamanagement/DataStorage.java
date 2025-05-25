@@ -3,7 +3,7 @@ package com.datamanagement;
 import com.alerts.AlertGenerator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +21,7 @@ public class DataStorage {
      * Private constructor to prevent instantiation.
      */
     private DataStorage() {
-        this.patientMap = new HashMap<>();
+        this.patientMap = new ConcurrentHashMap<>(); // changed normal hashmap to concurrent hashmap which is thread-safe (for week 5 task)
     }
 
     /**
