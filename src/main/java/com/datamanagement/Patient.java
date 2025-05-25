@@ -43,14 +43,6 @@ public class Patient {
         return patientRecords;
     }
 
-    public long getStartTime() {
-        return startTime;
-    }
-
-    public long getEndTime() {
-        return endTime;
-    }
-
     public void addRecord(Object measurementValue, String recordType, long timestamp) {
         PatientRecord record = new PatientRecord(patientId, measurementValue, recordType, timestamp);
         patientRecords.add(record);
@@ -62,17 +54,6 @@ public class Patient {
         for (PatientRecord record : patientRecords) {
             long t = record.getTimestamp();
             if (t >= startTime && t <= endTime) {
-                records.add(record);
-            }
-        }
-        return records;
-    }
-
-    public List<PatientRecord> getRecords(long startTime, long endTime, String type) {
-        List<PatientRecord> records = new ArrayList<>();
-        for (PatientRecord record : patientRecords) {
-            long t = record.getTimestamp();
-            if (t >= startTime && t <= endTime && record.getRecordType().equals(type)) {
                 records.add(record);
             }
         }

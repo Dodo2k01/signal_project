@@ -9,19 +9,19 @@ import com.alerts.alerts.Alert;
 import com.alerts.alerts.ECGAlert;
 import com.datamanagement.PatientRecord;
 
-import static com.datamanagement.Patient.getRecords;
-import static java.lang.Double.valueOf;
+import static com.alerts.alert_strategies.AlertStrategyUtils.parseDouble;
 
-public class ECGStrategy extends AlertStrategy{
+public class ECGStrategy implements AlertStrategy {
 
     @Override
     public List<Alert> checkAlert(int patientId, List<PatientRecord> patientRecords) {
+        AlertStrategyUtils record = new AlertStrategyUtils();
         List<Alert> alerts = new ArrayList<>();
         String type = "ECG";
         final int minRecords = 5;
         final long timeFrame = 60000;
         final double diffFromAvg = 0.25;
-            List<PatientRecord> records = getRecords(patientRecords, type);
+            List<PatientRecord> records = record.getRecords(patientRecords, type);
             if (records.isEmpty()) return alerts;
             PatientRecord firstRecord = records.get(0);
             int recordCount = records.size();

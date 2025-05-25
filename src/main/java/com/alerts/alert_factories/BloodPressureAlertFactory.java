@@ -1,13 +1,19 @@
 package com.alerts.alert_factories;
 
+import com.alerts.alerts.Alert;
 import com.alerts.alerts.BloodPressureAlert;
 
-public class BloodPressureAlertFactory extends AlertFactory {
+public class BloodPressureAlertFactory implements AlertFactory {
+    Alert alert;
 
-    public BloodPressureAlert createAlert(int patientId, String condition, long timestamp) {
-        
-        BloodPressureAlert alert = new BloodPressureAlert(patientId, condition, timestamp);
+    public BloodPressureAlertFactory(Alert alert) {
+        this.alert = alert;
+    }
 
-        return alert;
+    @Override
+    public Alert createAlert(String patientId, String condition, long timestamp) {
+        return new BloodPressureAlert(Integer.parseInt(patientId), condition, timestamp);
+
+
     }
 }

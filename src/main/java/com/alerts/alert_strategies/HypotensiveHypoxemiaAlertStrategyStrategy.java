@@ -1,18 +1,22 @@
 package com.alerts.alert_strategies;
 
 import com.alerts.alerts.Alert;
+import com.alerts.alerts.HypotensiveHypoxemiaAlert;
 import com.datamanagement.PatientRecord;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class HypotensiveHypoxemiaAlertStrategy extends AlertStrategy {
+import static com.alerts.alert_strategies.AlertStrategyUtils.parseDouble;
+
+public class HypotensiveHypoxemiaAlertStrategyStrategy implements AlertStrategy {
+
     @Override
     public List<Alert> checkAlert(int patientID, List<PatientRecord> patientRecords) {
+        AlertStrategyUtils record = new AlertStrategyUtils();
         List<Alert> alerts = new ArrayList<>();
         // 1) most recent SystolicPressure
-        List<PatientRecord> records = getRecords(patientRecords, "SystolicPressure", "Saturation");
+        List<PatientRecord> records = record.getRecords(patientRecords, "SystolicPressure", "Saturation");
 
         if (records.size() <= 1) return alerts;  // missing data
         for(PatientRecord patientRecord : records) {
@@ -21,7 +25,7 @@ public class HypotensiveHypoxemiaAlertStrategy extends AlertStrategy {
         return alerts;
     }
 
-    private void evaluate(PatientRecord record, List<Alert> alerts, List<PatientRecord> records,  int patientID) {
+    public void evaluate(PatientRecord record, List<Alert> alerts, List<PatientRecord> records,  int patientID) {
             String pressure = "SystolicPressure";
             String saturation = "Saturation";
             String type = record.getRecordType();
@@ -38,7 +42,7 @@ public class HypotensiveHypoxemiaAlertStrategy extends AlertStrategy {
                             alert.getTimestamp()<(t0+60000) &&
                             record.getRecordType().equalsIgnoreCase(toCompare) &&
                             parseDouble(record.getMeasurementValue().toString())<value2) {
-                        alerts.add(new Alert(patientID,
+                        alerts.add(new HypotensiveHypoxemiaAlert(patientID,
                                 "HypotensiveHypoxemia", record.getTimestamp()));
                     }
                 }

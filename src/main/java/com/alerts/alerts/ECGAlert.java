@@ -10,4 +10,5 @@ public class ECGAlert extends Alert {
     public String toString() {
         return "ECGAlert [patientId=" + patientId + ", condition=" + condition + ", timestamp=" + timestamp + "]";
     }
+
 }
